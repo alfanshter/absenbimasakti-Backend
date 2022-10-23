@@ -19,19 +19,19 @@
                         <div class="form-group">
                             <label>Ref ID</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="ref_id" id="ref_id"/>
+                                <input type="text" class="form-control" name="ref_id" id="ref_id" required/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Job Title</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="job_title" id="job_title"/>
+                                <input type="text" class="form-control" name="job_title" id="job_title" required/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Team Work</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="team_work" id="team_work"/>
+                                <input type="text" class="form-control" name="team_work" id="team_work" required/>
                             </div>
                         </div>
                     </div>
@@ -39,13 +39,13 @@
                         <div class="form-group">
                             <label>Work Location</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="work_location" id="work_location"/>
+                                <input type="text" class="form-control" name="work_location" id="work_location" required/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Number of Personal Working</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="number" id="number"/>
+                                <input type="text" class="form-control" name="number" id="number" required/>
                             </div>
                         </div>
                     </div>
@@ -64,13 +64,13 @@
                           <div class="col-sm-3">
                             <div class="form-check">
                               <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="cqfp" id="cqfp" value="yes"> Yes </label>
+                                <input type="radio" class="form-check-input" required name="cqfp" id="cqfp" value="yes"> Yes </label>
                             </div>
                           </div>
                           <div class="col-sm-3">
                             <div class="form-check">
                               <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="cqfp" id="cqfp" value="no"> No </label>
+                                <input type="radio" class="form-check-input" required name="cqfp" id="cqfp" value="no"> No </label>
                             </div>
                           </div>
                         </div>
@@ -81,13 +81,13 @@
                           <div class="col-sm-3">
                             <div class="form-check">
                               <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="cqpt" id="cqpt" value="yes"> Yes </label>
+                                <input type="radio" class="form-check-input" required name="cqpt" id="cqpt" value="yes"> Yes </label>
                             </div>
                           </div>
                           <div class="col-sm-3">
                             <div class="form-check">
                               <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="cqpt" id="cqpt" value="no"> No </label>
+                                <input type="radio" class="form-check-input" required name="cqpt" id="cqpt" value="no"> No </label>
                             </div>
                           </div>
                         </div>
@@ -98,13 +98,13 @@
                           <div class="col-sm-3">
                             <div class="form-check">
                               <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="cqwc" id="cqwc" value="yes"> Yes </label>
+                                <input type="radio" class="form-check-input" required name="cqwc" id="cqwc" value="yes"> Yes </label>
                             </div>
                           </div>
                           <div class="col-sm-3">
                             <div class="form-check">
                               <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="cqwc" id="cqwc" value="no"> No </label>
+                                <input type="radio" class="form-check-input" required name="cqwc" id="cqwc" value="no"> No </label>
                             </div>
                           </div>
                         </div>

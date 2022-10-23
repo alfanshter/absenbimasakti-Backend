@@ -34,21 +34,27 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
         $updatetoken = DB::table('users')->where('username', $request->username)->update(['token_id' => $token]);
 
-        if ($user->role == "0") {
-            $response = [
-                'data' => $user,
-                'access_token' => $token,
-                'token_type' => 'Bearer',
-                'status' => 1
-            ];
-        } else {
-            $response = [
-                'data' => $user,
-                'access_token' => $token,
-                'token_type' => 'Bearer',
-                'status' => 2
-            ];
-        }
+        $response = [
+            'data' => $user,
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+            'status' => 1
+        ];
+        // if ($user->role == "0") {
+        //     $response = [
+        //         'data' => $user,
+        //         'access_token' => $token,
+        //         'token_type' => 'Bearer',
+        //         'status' => 1
+        //     ];
+        // } else {
+        //     $response = [
+        //         'data' => $user,
+        //         'access_token' => $token,
+        //         'token_type' => 'Bearer',
+        //         'status' => 2
+        //     ];
+        // }
 
         return response()->json($response, Response::HTTP_CREATED);
     }

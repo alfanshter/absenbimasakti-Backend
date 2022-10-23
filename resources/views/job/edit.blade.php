@@ -68,19 +68,19 @@
                         <div class="form-group">
                             <label>Ref ID</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="ref_id" id="ref_id" value="{{ old('ref_id') ?? $job->ref_id }}"/>
+                                <input type="text" class="form-control" name="ref_id" required id="ref_id" value="{{ old('ref_id') ?? $job->ref_id }}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Job Title</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="job_title" id="job_title" value="{{ $job->job_title }}"/>
+                                <input type="text" class="form-control" name="job_title" required id="job_title" value="{{ $job->job_title }}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Team Work</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="team_work" id="team_work" value="{{ $job->team_work }}"/>
+                                <input type="text" class="form-control" name="team_work" required id="team_work" value="{{ $job->team_work }}"/>
                             </div>
                         </div>
                     </div>
@@ -88,13 +88,13 @@
                         <div class="form-group">
                             <label>Work Location</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="work_location" id="work_location" value="{{ $job->work_location }}"/>
+                                <input type="text" class="form-control" name="work_location" required id="work_location" value="{{ $job->work_location }}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Number of Personal Working</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="number" id="number" value="{{ $job->number_personal_working }}"/>
+                                <input type="text" class="form-control" name="number" id="number" required value="{{ $job->number_personal_working }}"/>
                             </div>
                         </div>
                     </div>
@@ -113,13 +113,13 @@
                           <div class="col-sm-3">
                             <div class="form-check">
                               <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="cqfp" id="cqfp" value="yes" {{ $job->every_one_capable_to_work == "yes" ? 'checked' : '' }}> Yes </label>
+                                <input type="radio" class="form-check-input" name="cqfp" id="cqfp" required value="yes" {{ $job->every_one_capable_to_work == "yes" ? 'checked' : '' }}> Yes </label>
                             </div>
                           </div>
                           <div class="col-sm-3">
                             <div class="form-check">
                               <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="cqfp" id="cqfp" value="no" {{ $job->every_one_capable_to_work == "no" ? 'checked' : '' }}> No </label>
+                                <input type="radio" class="form-check-input" name="cqfp" id="cqfp" required value="no" {{ $job->every_one_capable_to_work == "no" ? 'checked' : '' }}> No </label>
                             </div>
                           </div>
                         </div>
@@ -130,13 +130,13 @@
                           <div class="col-sm-3">
                             <div class="form-check">
                               <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="cqpt" id="cqpt" value="yes" {{ $job->potensi_tumpahan == "yes" ? 'checked' : '' }}> Yes </label>
+                                <input type="radio" class="form-check-input" name="cqpt" required id="cqpt" value="yes" {{ $job->potensi_tumpahan == "yes" ? 'checked' : '' }}> Yes </label>
                             </div>
                           </div>
                           <div class="col-sm-3">
                             <div class="form-check">
                               <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="cqpt" id="cqpt" value="no" {{ $job->potensi_tumpahan == "no" ? 'checked' : '' }}> No </label>
+                                <input type="radio" class="form-check-input" name="cqpt" required id="cqpt" value="no" {{ $job->potensi_tumpahan == "no" ? 'checked' : '' }}> No </label>
                             </div>
                           </div>
                         </div>
@@ -147,13 +147,13 @@
                           <div class="col-sm-3">
                             <div class="form-check">
                               <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="cqwc" id="cqwc" value="yes" {{ $job->work_case == "yes" ? 'checked' : '' }}> Yes </label>
+                                <input type="radio" class="form-check-input" name="cqwc" required id="cqwc" value="yes" {{ $job->work_case == "yes" ? 'checked' : '' }}> Yes </label>
                             </div>
                           </div>
                           <div class="col-sm-3">
                             <div class="form-check">
                               <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="cqwc" id="cqwc" value="no" {{ $job->work_case == "no" ? 'checked' : '' }}> No </label>
+                                <input type="radio" class="form-check-input" name="cqwc" required id="cqwc" value="no" {{ $job->work_case == "no" ? 'checked' : '' }}> No </label>
                             </div>
                           </div>
                         </div>

@@ -2,24 +2,38 @@
 
 @section('container')
 <div class="page-header">
-    <h3 class="page-title"> Attendence </h3>
-    <a href="/attendence/create" class="btn btn-gradient-primary btn-icon-text btn-md">
-      <i class="mdi mdi-plus-box btn-icon-prepend"></i> Add </a>
+  <h3 class="page-title"> Attendence </h3>
 </div>
 
 <div class="col-lg-12">
-    <div class="card">
-      <div class="card-body">
-        @if ($message = session()->get('success'))
-        <div class="alert alert-success">
+  <div class="card">
+    <div class="card-body">
+      @if ($message = session()->get('success'))
+      <div class="alert alert-success">
         <p>{{ $message }}</p>
+      </div>
+      @endif
+      <form class="" method="POST" action="/attendence/filter">
+        @csrf
+        <div class="row">
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <input type="text" class="form-control form-control-lg" required id="starts_at" name="starts_at" placeholder="Start At" onfocus="(this.type='date')">
+            </div>
+            <div class="col-sm-4">
+              <input type="text" class="form-control form-control-lg" required id="ends_at" placeholder="End At" name="ends_at" onfocus="(this.type='date')">
+            </div>
+            <div class="col-sm-4 col-form-label">
+              <button type="submit" class="btn btn-sm btn-gradient-primary ">Search</button>
+            </div>
+          </div>
         </div>
-        @endif
-        <div class="table-responsive">
+      </form>
+      <div class="table-responsive">
         <table class="table table-striped table-bordered" id="attendence">
           <thead>
             <tr>
-              <th> Username </th>
+              <th> Group </th>
               <th> Date </th>
               <th> Check In </th>
               <th> Picture In </th>
@@ -30,31 +44,30 @@
           <tbody>
             @foreach ($attendence as $data)
             <tr>
-                <td>{{ $data->username }}</td>
-                <td>{{ $data->date }}</td>
-                <td>{{ $data->check_in }}</td>
-                <td><img src="{{ asset('storage/' . $data->picture_in) }}"
-                  style="width:100px ; height:100px" alt=""></td>
-                <td>{{ $data->check_out }}</td>
-                <td><img src="{{ asset('storage/' . $data->picture_out) }}"
-                  style="width:100px ; height:100px" alt=""></td>
+              <td>{{ $data->nama_grup }}</td>
+              <td>{{ $data->date }}</td>
+              <td>{{ $data->check_in }}</td>
+              <td><img src="{{ asset('storage/' . $data->picture_in) }}" style="width:100px ; height:100px" alt=""></td>
+              <td>{{ $data->check_out }}</td>
+              <td><img src="{{ asset('storage/' . $data->picture_out) }}" style="width:100px ; height:100px" alt=""></td>
             </tr>
             @endforeach
           </tbody>
         </table>
       </div>
-      {{-- <div class="d-flex justify-content-right mt-4">
+      <div class="d-flex justify-content-right mt-4">
         {!! $attendence->links() !!}
-      </div> --}}
+      </div>
     </div>
-</div>
-@endsection
+  </div>
+  @endsection
 
-@push('script')
-{{-- <script src="{{ asset('/js/myjs.js') }}"></script> --}}
-<script>
+  @push('script')
+
+  {{-- <script src="{{ asset('/js/myjs.js') }}"></script> --}}
+  {{-- <script>
     $(document).ready(function () {
     $('#attendence').DataTable();
 });
-</script>
-@endpush
+</script> --}}
+  @endpush
