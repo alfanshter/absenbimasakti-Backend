@@ -174,20 +174,37 @@ class AttendenceController extends Controller
 
     public function print_attendence(Request $request)
     {
-        $report = DB::table('reports')
-            ->join('users', 'users.id', '=', 'reports.id_user')
-            ->join('groupusers', 'groupusers.id', '=', 'users.grup_id')
-            ->select('reports.*', 'users.name', 'groupusers.nama_grup')
-            ->whereDate('reports.date', '>=', $request->starts_at)
-            ->whereDate('reports.date', '<=', $request->ends_at)
-            ->get();
+        if ($request->starts_at && $request->ends_at) {
+            $report = DB::table('reports')
+                ->join('users', 'users.id', '=', 'reports.id_user')
+                ->join('groupusers', 'groupusers.id', '=', 'users.grup_id')
+                ->select('reports.*', 'users.name', 'groupusers.nama_grup')
+                ->whereDate('reports.date', '>=', $request->starts_at)
+                ->whereDate('reports.date', '<=', $request->ends_at)
+                ->get();
 
-        $pdf = Pdf::loadview('attendence.print', [
-            'attendence' => $report,
-            'starts_at' => $request->starts_at,
-            'ends_at' => $request->ends_at
-        ]);
-        $pdf->setPaper('A4', 'potrait');
-        return $pdf->stream();
+            $pdf = Pdf::loadview('attendence.print', [
+                'attendence' => $report,
+                'starts_at' => $request->starts_at,
+                'ends_at' => $request->ends_at
+            ]);
+            $pdf->setPaper('A4', 'potrait');
+            return $pdf->stream();
+        } else {
+            $report = DB::table('reports')
+                ->join('users', 'users.id', '=', 'reports.id_user')
+                ->join('groupusers', 'groupusers.id', '=', 'users.grup_id')
+                ->select('reports.*', 'users.name', 'groupusers.nama_grup')
+                ->get();
+
+            $pdf = Pdf::loadview('attendence.print', [
+                'attendence' => $report,
+                'starts_at' => null,
+                'ends_at' => null
+
+            ]);
+            $pdf->setPaper('A4', 'potrait');
+            return $pdf->stream();
+        }
     }
 }
