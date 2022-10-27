@@ -106,4 +106,4 @@ Route::post('/attendence', [AttendenceController::class, 'store']);
 Route::get('/edit/attendence/{id}', [AttendenceController::class, 'edit']);
 Route::post('/update/attendence', [AttendenceController::class, 'update']);
 Route::delete('/delete/attendence/{id}', [AttendenceController::class, 'destroy']);
-Route::get('/print_attendence', [AttendenceController::class, 'print_attendence'])->name('print_attendence');
+Route::post('/print_attendence', [AttendenceController::class, 'print_attendence']);

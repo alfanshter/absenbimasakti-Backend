@@ -26,7 +26,9 @@ class AttendenceController extends Controller
                 ->paginate(10);
 
             return view('attendence.index', [
-                'attendence' => $report
+                'attendence' => $report,
+                'starts_at' => null,
+                'ends_at' => null
             ]);
         }
         return redirect("login")->withSuccess('You are not allowed to access');
@@ -42,8 +44,13 @@ class AttendenceController extends Controller
             ->whereDate('reports.date', '<=', $request->ends_at)
             ->paginate(10);
 
+        $starts_at = $request->starts_at;
+        $ends_at = $request->ends_at;
+
         return view('attendence.index', [
-            'attendence' => $report
+            'attendence' => $report,
+            'starts_at' => $starts_at,
+            'ends_at' => $ends_at
         ]);
     }
 
@@ -176,8 +183,11 @@ class AttendenceController extends Controller
             ->get();
 
         $pdf = Pdf::loadview('attendence.print', [
-            'attendence' => $report
+            'attendence' => $report,
+            'starts_at' => $request->starts_at,
+            'ends_at' => $request->ends_at
         ]);
+        $pdf->setPaper('A4', 'potrait');
         return $pdf->stream();
     }
 }
