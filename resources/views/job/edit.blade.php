@@ -226,15 +226,15 @@
                     <div class="col-md-3">
                         <div class="form-check">
                             <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" name="cb_ppe[]" id="cb_ppe[]" value="Helmet Safety" {{ in_array('Helmet Safety', $ppe) ? 'checked' : '' }}> Helmet </label>
+                            <input type="checkbox" class="form-check-input" name="cb_ppe[]" id="cb_ppe[]" value="Helmet Safety" {{ in_array('Helmet Safety', $ppe) ? 'checked' : '' }}> Helmet Safety</label>
                         </div>
                         <div class="form-check">
                             <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input"name="cb_ppe[]" id="cb_ppe[]" value="Safety Shoes" {{ in_array('Safety Shoes', $ppe) ? 'checked' : '' }}> Shoes </label>
+                            <input type="checkbox" class="form-check-input"name="cb_ppe[]" id="cb_ppe[]" value="Safety Shoes" {{ in_array('Safety Shoes', $ppe) ? 'checked' : '' }}>Safety Shoes </label>
                         </div>
                         <div class="form-check">
                             <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" name="cb_ppe[]" id="cb_ppe[]" value="Safety Glasses" {{ in_array('Safety Glasses', $ppe) ? 'checked' : '' }}> Glasses </label>
+                            <input type="checkbox" class="form-check-input" name="cb_ppe[]" id="cb_ppe[]" value="Safety Glasses" {{ in_array('Safety Glasses', $ppe) ? 'checked' : '' }}>Safety Glasses </label>
                         </div>
                         <div class="form-check">
                             <label class="form-check-label">
@@ -256,7 +256,7 @@
                         </div>
                         <div class="form-check">
                             <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" name="cb_ppe[]" id="cb_ppe[]" value="Safety Harness" {{ in_array('Safety Harness', $ppe) ? 'checked' : '' }}> Harness </label>
+                            <input type="checkbox" class="form-check-input" name="cb_ppe[]" id="cb_ppe[]" value="Safety Harness" {{ in_array('Safety Harness', $ppe) ? 'checked' : '' }}>Safety Harness </label>
                         </div>
                         <div class="form-check">
                             <label class="form-check-label">

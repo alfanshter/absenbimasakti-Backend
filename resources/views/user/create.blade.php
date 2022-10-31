@@ -12,23 +12,23 @@
                 @csrf
                 <div class="form-group">
                     <label for="exampleInputEmail3">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+                    <input type="text" class="form-control" required id="name" name="name" placeholder="Name">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail3">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+                    <input type="text" class="form-control" required id="username" name="username" placeholder="Username">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail3">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                    <input type="email" class="form-control" required id="email" name="email" placeholder="Email">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail3">Password</label>
-                    <input type="password" class="form-control" id="password" name="password">
+                    <input type="password" class="form-control" required id="password" name="password">
                 </div>
                 <div class="form-group">
                     <label for="recipient-name">Select Group</label>
-                    <select class="form-control form-control-lg" aria-label="Default select example" name="grup_id" id="grup_id">
+                    <select class="form-control form-control-lg" aria-label="Default select example" required name="grup_id" id="grup_id">
                         <option>Pilih Grup</option>
                         @foreach ($grup as $data)
                         <option value="{{ $data->id }}">{{ $data->nama_grup }}

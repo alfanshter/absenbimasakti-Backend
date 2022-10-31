@@ -10,6 +10,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cookie;
 use DataTables;
+use PDF;
 
 
 class InternalController extends Controller
@@ -211,5 +212,16 @@ class InternalController extends Controller
         return redirect("login")->withSuccess('You are not allowed to access');
     }
 
+    public function export($id)
+    {
+        $internal = InternalPurchaseRequesition::find($id);
+        $detail = DetailInternalPurchaseRequesition::where('kode', $internal->kode)->get();
 
+        $paper = array(0, 0, 794, 1247);
+        $pdf = PDF::loadView('internal.export',[
+            'internal' =>$internal,
+            'detail' => $detail,
+        ])->setPaper($paper);
+        return $pdf->download('Internal-Purchase-Requestion.pdf');
+    }
 }

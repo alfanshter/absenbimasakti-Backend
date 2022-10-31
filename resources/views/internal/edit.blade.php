@@ -68,25 +68,25 @@
                             <label>Ref ID</label>
                             <input type="hidden" name="id" id="id" value="{{ $internal->id }}">
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" value="{{ $internal->ref_id }}" name="ref_id" id="ref_id"/>
+                                <input type="text" class="form-control" required value="{{ $internal->ref_id }}" name="ref_id" id="ref_id"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Requestioned By</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control"  value="{{ $internal->requestioned_by }}" name="requestioned_by" id="requestioned_by"/>
+                                <input type="text" class="form-control" required value="{{ $internal->requestioned_by }}" name="requestioned_by" id="requestioned_by"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Date</label>
                             <div class="col-sm-9">
-                                <input type="date" class="form-control"  value="{{ $internal->date }}" name="date" id="date"/>
+                                <input type="date" class="form-control" required value="{{ $internal->date }}" name="date" id="date"/>
                             </div>
                         </div>
                         <div class="form-group">
                           <label>Department</label>
                           <div class="col-sm-9">
-                              <input type="text" class="form-control"  value="{{ $internal->department }}" name="department" id="department"/>
+                              <input type="text" class="form-control" required value="{{ $internal->department }}" name="department" id="department"/>
                           </div>
                       </div>
                     </div>
@@ -94,19 +94,19 @@
                         <div class="form-group">
                             <label>Position</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control"  value="{{ $internal->position }}" name="position" id="position"/>
+                                <input type="text" class="form-control" required value="{{ $internal->position }}" name="position" id="position"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Project Location</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" value="{{ $internal->project_location }}" name="project_location" id="project_location"/>
+                                <input type="text" class="form-control" required value="{{ $internal->project_location }}" name="project_location" id="project_location"/>
                             </div>
                         </div>
                         <div class="form-group">
                           <label>Completed Address</label>
                           <div class="col-sm-9">
-                              <input type="text" class="form-control" value="{{ $internal->completed_addres }}" name="completed_address" id="completed_address"/>
+                              <input type="text" class="form-control" required value="{{ $internal->completed_addres }}" name="completed_address" id="completed_address"/>
                           </div>
                       </div>
                     </div>

@@ -65,7 +65,7 @@
           <div class="form-group">
             <input type="hidden" name="id" id="id">
             <label for="exampleInputName1">Group Name</label>
-            <input type="text" class="form-control" id="nama_grup" name="nama_grup" placeholder="Group Name">
+            <input type="text" class="form-control" id="nama_grup" required name="nama_grup" placeholder="Group Name">
           </div>
       </div>
       <div class="modal-footer">

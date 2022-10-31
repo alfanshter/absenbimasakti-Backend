@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cookie;
+use PDF;
 use DataTables;
 
 
@@ -240,6 +241,49 @@ class HotController extends Controller
         $internal = HotWorkPermit::where('id' , $id)->first();
             $id_detail = explode(',' , $internal->id_equipment_check);
             $aar = EquipmentCheck::whereIn('id', $id_detail)->delete();
+    }
+
+    public function export($id)
+    {
+        $hot = HotWorkPermit::find($id);
+        $vp_from = explode(" ", $hot->vp_form);
+        $vpf_date = $vp_from[0];
+        $vpf_time = $vp_from[1];
+        $vp_to = explode(" ", $hot->vp_to);
+        $vpt_date = $vp_to[0];
+        $vpt_time = $vp_to[1];
+        $vp_datetime = explode(" ", $hot->vp_datetime);
+        $vpd_date = $vp_datetime[0];
+        $vpd_time = $vp_datetime[1];
+        $c_datetime = explode(" ", $hot->c_datetime);
+        $c_date = $c_datetime[0];
+        $c_time = $c_datetime[1];
+        $h_acceptor_datetime = explode(" ", $hot->h_acceptor_datetime);
+        $hc_date = $h_acceptor_datetime[0];
+        $hc_time = $h_acceptor_datetime[1];
+        $h_issuer_datetime = explode(" ", $hot->h_issuer_datetime);
+        $hi_date = $h_issuer_datetime[0];
+        $hi_time = $h_issuer_datetime[1];
+        $equipment = EquipmentCheck::where('kode', $hot->kode)->get();
+
+        $paper = array(0, 0, 794, 1247);
+        $pdf = PDF::loadView('hot.export',[
+            'hot' =>$hot,
+            'equipment' => $equipment,
+            'vpf_date' => $vpf_date,
+            'vpf_time' => $vpf_time,
+            'vpt_date' => $vpt_date,
+            'vpt_time' => $vpt_time,
+            'vpd_date' => $vpd_date,
+            'vpd_time' => $vpd_time,
+            'c_date' => $c_date,
+            'c_time' => $c_time,
+            'hc_date' => $hc_date,
+            'hc_time' => $hc_time,
+            'hi_date' => $hi_date,
+            'hi_time' => $hi_time,
+        ])->setPaper($paper);
+        return $pdf->download('Hot-Work-Premit.pdf');
     }
 
 }

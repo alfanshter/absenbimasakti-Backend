@@ -10,6 +10,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cookie;
 use DataTables;
+use PDF;
 
 class JobController extends Controller
 {
@@ -208,6 +209,21 @@ class JobController extends Controller
             return redirect()->back()->withInput();
         }
         return redirect("login")->withSuccess('You are not allowed to access');
+    }
+
+    public function export($id)
+    {
+        $job = JobSafetyAnalysis::find($id);
+        $aar = AarJobSafety::where('kode', $job->kode)->get();
+        $paper = array(0, 0, 794, 1247);
+
+        $pdf = PDF::loadView('job.export',[
+            'job' => $job,
+            'ppe' => explode(',', $job->ppe),
+            'aar' => $aar
+            ])->setPaper($paper);
+        return $pdf->download('Job-Safety-Analysis.pdf');
+        // return view('job.export');
     }
 
 }

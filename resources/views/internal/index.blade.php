@@ -36,6 +36,12 @@
             <tr>
                 <td>
                   <div class="btn-group">
+                    <a class="btn btn-gradient-success btn-outline-secondary btn-sm" href="/internal-purchase-requestion/export/{{ $data->id }}">
+                      <i class="mdi mdi-printer"></i>
+                    </a>
+                    <a class="btn btn-gradient-info btn-outline-secondary btn-sm" href="/edit/internal-purchase-requestion/{{ $data->id }}">
+                      <i class="mdi mdi-pencil-box"></i>
+                    </a>
                     <form action="/delete/internal-purchase-requestion/{{$data->id}}" method="post">
                       @method('delete')
                       @csrf
@@ -43,9 +49,6 @@
                       <i class="mdi mdi-delete"></i>
                       </button>
                     </form>
-                    <a class="btn btn-gradient-info btn-outline-secondary btn-sm" href="/edit/internal-purchase-requestion/{{ $data->id }}">
-                      <i class="mdi mdi-pencil-box"></i>
-                    </a>
                     </div>
                 </td>
                 <td>{{ $data->ref_id }}</td>

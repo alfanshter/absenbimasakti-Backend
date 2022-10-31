@@ -53,4 +53,9 @@ class User extends Authenticatable
         {
             return $this->belongsTo(UserGroup::class, 'grup_id', 'id');
         }
+        
+        public function attendence()
+        {
+            return $this->hasMany(Report::class,'id_user', 'id');
+        }
 }

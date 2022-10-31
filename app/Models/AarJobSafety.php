@@ -12,4 +12,9 @@ class AarJobSafety extends Model
     protected $fillable = [
         'date', 'sequence_of_job_step', 'potential_hazard', 'reduce_potential', 'pic', 'kode'
     ];
+
+    public function grup()
+    {
+        return $this->belongsTo(User::class, 'grup_id', 'id');
+    }
 }

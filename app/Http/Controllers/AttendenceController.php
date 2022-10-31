@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Report;
+use App\Models\User;
+use App\Models\UserGroup;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 class AttendenceController extends Controller
@@ -16,19 +19,42 @@ class AttendenceController extends Controller
     //
     public function index(Request $request)
     {
-        if (Auth::check()) {
-            $filter = $request->query('filter');
-            if (!empty($filter)) {
-                $report = Report::whereBetween('date', [$request->starts_at, $request->ends_at])->paginate(10);;
-            } else {
-                $report = Report::paginate(2);
-            }
+        if (Auth::check()) 
+        {
+            $report = DB::table('reports')
+                ->join('users','users.id', '=','reports.id_user' )
+                ->join('groupusers','groupusers.id', '=','users.grup_id')
+                ->select('reports.*', 'users.name', 'groupusers.nama_grup' );
+
+                if($request->all()){
+                    $report->where('users.grup_id','=',$request->grup_id)
+                    ->whereDate('reports.date', '>=', $request->starts_at)
+                    ->whereDate('reports.date', '<=', $request->ends_at);
+                }
+            
             return view('attendence.index', [
-                'attendence' => $report
+                'attendence' => $report->paginate(10),
+                'grup' => UserGroup::all()
             ]);
         }
         return redirect("login")->withSuccess('You are not allowed to access');
     }
+
+    public function filter(Request $request)
+    {
+        $report = DB::table('reports')
+        ->join('users','users.id', '=','reports.id_user' )
+        ->join('groupusers','groupusers.id', '=','users.grup_id')
+        ->select('reports.*', 'users.name', 'groupusers.*')
+
+        ->paginate(10);
+
+        return view('attendence.index', [
+            'attendence' => $report,
+            'grup' => UserGroup::all()
+        ]);
+    }
+
 
     public function checkin(Request $request)
     {

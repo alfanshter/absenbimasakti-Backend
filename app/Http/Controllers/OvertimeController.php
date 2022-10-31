@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
+use PDF;
 use DataTables;
 
 class OvertimeController extends Controller
@@ -99,5 +100,14 @@ class OvertimeController extends Controller
             return redirect('/overtime-work')->with('success', 'Overtime Work Deleted ');
         }
         return redirect("login")->withSuccess('You are not allowed to access');
+    }
+
+    public function export($id)
+    {
+        $overtime = OvertimeWork::find($id);
+        $paper = array(0, 0, 794, 1247);
+
+        $pdf = PDF::loadView('overtime.export',['overtime' =>$overtime])->setPaper($paper);
+        return $pdf->download('Overtime-Work.pdf');
     }
 }

@@ -49,7 +49,7 @@ class UserController extends Controller
                 'username' => $request->username,
                 'password' => Hash::make($request->password),
                 'email' => $request->email,
-                'role' => '0',
+                'role' => '1',
                 'status' => '0',
                 'grup_id' => $request->grup_id
             ]);

@@ -36,21 +36,21 @@
             @foreach ($overtime as $data)
             <tr>
                 <td>
-                  <a class="btn btn-gradient-success btn-rounded btn-sm" href="/export/overtime-work/{{ $data->id }}">
-                    <i class="mdi mdi-printer"></i>
-                  </a>
-                  <br>
-                  <a class="btn btn-gradient-info btn-rounded btn-sm" href="/edit/overtime-work/{{ $data->id }}">
-                    <i class="mdi mdi-pencil-box"></i>
-                  </a>
-                  <br>
-                <form action="/delete/overtime-work/{{$data->id}}" method="post">
-                  @method('delete')
-                  @csrf
-                  <button class="btn btn-gradient-danger btn-rounded btn-sm" onclick="return confirm('Apakah anda menyetujui ?')" >
-                  <i class="mdi mdi-delete"></i>
-                  </button>
-                </form>
+                  <div class="btn-group">
+                    <a class="btn btn-gradient-success btn-outline-secondary btn-sm" href="/overtime-work/export/{{ $data->id }}">
+                      <i class="mdi mdi-printer"></i>
+                    </a>
+                    <a class="btn btn-gradient-info btn-outline-secondary btn-sm" href="/edit/overtime-work/{{ $data->id }}">
+                      <i class="mdi mdi-pencil-box"></i>
+                    </a>
+                    <form action="/delete/overtime-work/{{$data->id}}" method="post">
+                      @method('delete')
+                      @csrf
+                      <button class="btn btn-gradient-danger btn-outline-secondary btn-sm" onclick="return confirm('Apakah anda menyetujui ?')" >
+                      <i class="mdi mdi-delete"></i>
+                      </button>
+                    </form>
+                  </div>
                 </td>
                 <td>{{ $data->ref_id }}</td>
                 <td>{{ $data->nik }}</td>
