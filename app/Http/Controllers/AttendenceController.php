@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Report;
+use App\Models\UserGroup;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -16,43 +17,74 @@ use Illuminate\Support\Facades\DB;
 class AttendenceController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
         if (Auth::check()) {
             $report = DB::table('reports')
                 ->join('users', 'users.id', '=', 'reports.id_user')
                 ->join('groupusers', 'groupusers.id', '=', 'users.grup_id')
-                ->select('reports.*', 'users.name', 'groupusers.nama_grup')
-                ->paginate(10);
+                ->select('reports.*', 'users.name', 'groupusers.nama_grup');
+
+            if ($request->all()) {
+                $report->where('users.grup_id', '=', $request->grup_id)
+                    ->whereDate('reports.date', '>=', $request->starts_at)
+                    ->whereDate('reports.date', '<=', $request->ends_at);
+            }
 
             return view('attendence.index', [
-                'attendence' => $report,
-                'starts_at' => null,
-                'ends_at' => null
+                'attendence' => $report->paginate(10),
+                'grup' => UserGroup::all()
             ]);
+            // $report = DB::table('reports')
+            //     ->join('users', 'users.id', '=', 'reports.id_user')
+            //     ->join('groupusers', 'groupusers.id', '=', 'users.grup_id')
+            //     ->select('reports.*', 'users.name', 'groupusers.nama_grup')
+            //     ->paginate(10);
+
+            // return view('attendence.index', [
+            //     'attendence' => $report,
+            //     'starts_at' => null,
+            //     'ends_at' => null
+            // ]);
         }
         return redirect("login")->withSuccess('You are not allowed to access');
     }
+
+    // public function filter(Request $request)
+    // {
+    //     $report = DB::table('reports')
+    //         ->join('users', 'users.id', '=', 'reports.id_user')
+    //         ->join('groupusers', 'groupusers.id', '=', 'users.grup_id')
+    //         ->select('reports.*', 'users.name', 'groupusers.nama_grup')
+    //         ->whereDate('reports.date', '>=', $request->starts_at)
+    //         ->whereDate('reports.date', '<=', $request->ends_at)
+    //         ->paginate(10);
+
+    //     $starts_at = $request->starts_at;
+    //     $ends_at = $request->ends_at;
+
+    //     return view('attendence.index', [
+    //         'attendence' => $report,
+    //         'starts_at' => $starts_at,
+    //         'ends_at' => $ends_at
+    //     ]);
+    // }
 
     public function filter(Request $request)
     {
         $report = DB::table('reports')
             ->join('users', 'users.id', '=', 'reports.id_user')
             ->join('groupusers', 'groupusers.id', '=', 'users.grup_id')
-            ->select('reports.*', 'users.name', 'groupusers.nama_grup')
-            ->whereDate('reports.date', '>=', $request->starts_at)
-            ->whereDate('reports.date', '<=', $request->ends_at)
-            ->paginate(10);
+            ->select('reports.*', 'users.name', 'groupusers.*')
 
-        $starts_at = $request->starts_at;
-        $ends_at = $request->ends_at;
+            ->paginate(10);
 
         return view('attendence.index', [
             'attendence' => $report,
-            'starts_at' => $starts_at,
-            'ends_at' => $ends_at
+            'grup' => UserGroup::all()
         ]);
     }
+
 
 
     public function checkin(Request $request)

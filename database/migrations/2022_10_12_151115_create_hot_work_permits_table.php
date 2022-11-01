@@ -31,8 +31,10 @@ class CreateHotWorkPermitsTable extends Migration
             $table->enum('cpp_understand_site', ['yes', 'no']);
             $table->enum('cpp_kextinguidsher', ['yes', 'no']);
             $table->string('other_precaution');
-            $table->string('vp_form');
-            $table->string('vp_to');
+            // $table->string('vp_form');
+            // $table->string('vp_to');
+            $table->datetime('vp_form');
+            $table->datetime('vp_to');
             $table->string('issuer');
             $table->datetime('vp_datetime');
             $table->string('c_acceptor');

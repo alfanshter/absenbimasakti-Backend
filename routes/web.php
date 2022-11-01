@@ -48,6 +48,7 @@ Route::post('/job-safety-analysis', [JobController::class, 'store']);
 Route::get('/edit/job-safety-analysis/{id}', [JobController::class, 'edit']);;
 Route::post('/update/job-safety-analysis', [JobController::class, 'update']);
 Route::delete('/delete/job-safety-analysis/{id}', [JobController::class, 'destroy']);
+Route::get('/job-safety-analysis/export/{id}', [JobController::class, 'export']);
 
 Route::post('/add-aar', [JobController::class, 'storeAar']);
 Route::post('/editadd-aar', [JobController::class, 'editAddAar']);
@@ -62,6 +63,7 @@ Route::post('/internal-purchase-requestion', [InternalController::class, 'store'
 Route::get('/edit/internal-purchase-requestion/{id}', [InternalController::class, 'edit']);
 Route::post('/update/internal-purchase-requestion', [InternalController::class, 'update']);
 Route::delete('/delete/internal-purchase-requestion/{id}', [InternalController::class, 'destroy']);
+Route::get('/internal-purchase-requestion/export/{id}', [InternalController::class, 'export']);
 
 Route::post('/add-detail', [InternalController::class, 'storeDetail']);
 Route::post('/editadd-detail', [InternalController::class, 'editAddDetail']);
@@ -77,6 +79,7 @@ Route::post('/hot-work-premit', [HotController::class, 'store']);
 Route::get('/edit/hot-work-premit/{id}', [HotController::class, 'edit']);
 Route::post('/update/hot-work-premit', [HotController::class, 'update']);
 Route::delete('/delete/hot-work-premit/{id}', [HotController::class, 'destroy']);
+Route::get('/hot-work-premit/export/{id}', [HotController::class, 'export']);
 
 Route::post('/add-equipment', [HotController::class, 'storeEquipment']);
 Route::post('/editadd-equipment', [HotController::class, 'editAddequipment']);
@@ -98,6 +101,7 @@ Route::post('/overtime-work', [OvertimeController::class, 'store']);
 Route::get('/edit/overtime-work/{id}', [OvertimeController::class, 'edit']);
 Route::post('/update/overtime-work', [OvertimeController::class, 'update']);
 Route::delete('/delete/overtime-work/{id}', [OvertimeController::class, 'destroy']);
+Route::get('/overtime-work/export/{id}', [OvertimeController::class, 'export']);
 
 Route::get('/attendence', [AttendenceController::class, 'index']);
 Route::post('/attendence/filter', [AttendenceController::class, 'filter']);

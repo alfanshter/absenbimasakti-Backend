@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\JobSafetyAnalysis;
 use App\Models\AarJobSafety;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -16,29 +18,30 @@ class JobController extends Controller
     //
     public function index()
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             Cookie::forget('kode_aar');
             $token_key = Str::random(30);
             Cookie::queue(Cookie::forever('kode_aar', $token_key));
             return view('job.index', [
-                'job' => JobSafetyAnalysis::all()]);
+                'job' => JobSafetyAnalysis::all()
+            ]);
         }
         return redirect("login")->withSuccess('You are not allowed to access');
     }
 
-    public function create(Request $request) 
+    public function create(Request $request)
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             $val = Cookie::get('kode_aar');
             $data = AarJobSafety::where('kode', $val)->get();
             if ($request->ajax()) {
                 return Datatables::of($data)
-                        ->addIndexColumn()
-                        ->addColumn('action', 'usergroup.action')
-                        ->rawColumns(['action'])
-                        ->make(true);
+                    ->addIndexColumn()
+                    ->addColumn('action', 'usergroup.action')
+                    ->rawColumns(['action'])
+                    ->make(true);
             }
-            return view('job.create',[
+            return view('job.create', [
                 'kode' => $val
             ]);
         }
@@ -47,27 +50,28 @@ class JobController extends Controller
 
     public function storeAar(Request $request)
     {
-        if(Auth::check()){
-            $aar = AarJobSafety::updateOrCreate([
-                'id' => $request->id
-            ],
-            [
-            "date" => $request->date,
-            "sequence_of_job_step" => $request->sequence_of_job_step,
-            "potential_hazard" => $request->potential_hazard,
-            "reduce_potential" => $request->reduce_potential,
-            "pic" => $request->pic,
-            "kode" =>$request->kode
-            ]);            
+        if (Auth::check()) {
+            $aar = AarJobSafety::updateOrCreate(
+                [
+                    'id' => $request->id
+                ],
+                [
+                    "date" => $request->date,
+                    "sequence_of_job_step" => $request->sequence_of_job_step,
+                    "potential_hazard" => $request->potential_hazard,
+                    "reduce_potential" => $request->reduce_potential,
+                    "pic" => $request->pic,
+                    "kode" => $request->kode
+                ]
+            );
             return response()->json($aar);
         }
         return redirect("login")->withSuccess('You are not allowed to access');
-    
     }
 
     public function store(Request $request)
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             $validatedData = $request->validate([
                 'ref_id' => 'required|max:255',
                 'job_title' => 'required|max:255',
@@ -77,7 +81,7 @@ class JobController extends Controller
             ]);
             $dataaar = DB::table('aar_job_safeties')->select('id')->where('kode', $request->kode)->get();
             $json = json_decode($dataaar, true);
-            $output = implode(',', collect($json)->map(fn($item) => $item['id'])->all());
+            $output = implode(',', collect($json)->map(fn ($item) => $item['id'])->all());
             JobSafetyAnalysis::create([
                 'ref_id' => $request->ref_id,
                 'job_title' => $request->job_title,
@@ -101,9 +105,9 @@ class JobController extends Controller
 
     public function edit($id)
     {
-        if(Auth::check()){
-            $job = JobSafetyAnalysis::where('id' , $id)->first();
-            $id_aar = explode(',' , $job->id_aar);
+        if (Auth::check()) {
+            $job = JobSafetyAnalysis::where('id', $id)->first();
+            $id_aar = explode(',', $job->id_aar);
             $aar = AarJobSafety::where('kode', $job->kode)->get();
             return view('job.edit', [
                 'job' => $job,
@@ -116,10 +120,10 @@ class JobController extends Controller
 
     public function update(Request $request)
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             $dataaar = DB::table('aar_job_safeties')->select('id')->where('kode', $request->kode)->get();
-                $json = json_decode($dataaar, true);
-                $output = implode(',', collect($json)->map(fn($item) => $item['id'])->all());
+            $json = json_decode($dataaar, true);
+            $output = implode(',', collect($json)->map(fn ($item) => $item['id'])->all());
             $user = JobSafetyAnalysis::where('id', $request->id)->update([
                 'ref_id' => $request->ref_id,
                 'job_title' => $request->job_title,
@@ -141,7 +145,7 @@ class JobController extends Controller
 
     public function updateAar(Request $request)
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             $where = array('id' => $request->id);
             $company  = AarJobSafety::where($where)->first();
             return Response()->json($company);
@@ -150,9 +154,9 @@ class JobController extends Controller
     }
     public function destroy($id)
     {
-        if(Auth::check()){
-            $internal = JobSafetyAnalysis::where('id' , $id)->first();
-            $id_detail = explode(',' , $internal->id_aar);
+        if (Auth::check()) {
+            $internal = JobSafetyAnalysis::where('id', $id)->first();
+            $id_detail = explode(',', $internal->id_aar);
             $aar = AarJobSafety::whereIn('id', $id_detail)->delete();
             JobSafetyAnalysis::destroy($id);
             return redirect('/job-safety-analysis')->with('success', 'Job Safety Analysis Deleted ');
@@ -162,9 +166,9 @@ class JobController extends Controller
 
     public function destroyAar(Request $request)
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             $post = AarJobSafety::where('id', $request->id)->first();
-            if($post){
+            if ($post) {
                 $post->delete();
                 return response()->json($post);
             }
@@ -180,21 +184,21 @@ class JobController extends Controller
             "potential_hazard" => $request->potential_hazard,
             "reduce_potential" => $request->reduce_potential,
             "pic" => $request->pic,
-            "kode" =>$request->kode
-        ]);            
+            "kode" => $request->kode
+        ]);
         return redirect()->back()->withInput();
     }
 
     public function editupdateAar(Request $request)
     {
-        if(Auth::check()){
-            $company  = AarJobSafety::where('id',$request->editid)->update([
+        if (Auth::check()) {
+            $company  = AarJobSafety::where('id', $request->editid)->update([
                 "date" => $request->editdate,
                 "sequence_of_job_step" => $request->editsequence_of_job_step,
                 "potential_hazard" => $request->editpotential_hazard,
                 "reduce_potential" => $request->editreduce_potential,
                 "pic" => $request->editpic,
-                "kode" =>$request->editkode
+                "kode" => $request->editkode
             ]);
             return redirect()->back()->withInput();
         }
@@ -203,11 +207,25 @@ class JobController extends Controller
 
     public function editdestroyAar($id)
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             AarJobSafety::destroy($id);
             return redirect()->back()->withInput();
         }
         return redirect("login")->withSuccess('You are not allowed to access');
     }
 
+    public function export($id)
+    {
+        $job = JobSafetyAnalysis::find($id);
+        $aar = AarJobSafety::where('kode', $job->kode)->get();
+        $paper = array(0, 0, 794, 1247);
+
+        $pdf = Pdf::loadView('job.export', [
+            'job' => $job,
+            'ppe' => explode(',', $job->ppe),
+            'aar' => $aar
+        ])->setPaper($paper);
+        return $pdf->download('Job-Safety-Analysis.pdf');
+        // return view('job.export');
+    }
 }

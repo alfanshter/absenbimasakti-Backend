@@ -33,6 +33,12 @@
             <tr>
               <td>
                 <div class="btn-group">
+                  <a class="btn btn-gradient-success btn-outline-secondary btn-sm" href="/job-safety-analysis/export/{{ $data->id }}">
+                    <i class="mdi mdi-printer"></i>
+                  </a>
+                  <a class="btn btn-gradient-info btn-outline-secondary btn-sm" href="/edit/job-safety-analysis/{{ $data->id }}">
+                    <i class="mdi mdi-pencil-box"></i>
+                  </a>
                   <form action="/delete/job-safety-analysis/{{$data->id}}" method="post">
                     @method('delete')
                     @csrf
@@ -40,9 +46,6 @@
                       <i class="mdi mdi-delete"></i>
                     </button>
                   </form>
-                  <a class="btn btn-gradient-info btn-outline-secondary btn-sm" href="/edit/job-safety-analysis/{{ $data->id }}">
-                    <i class="mdi mdi-pencil-box"></i>
-                  </a>
                 </div>
               </td>
               <td>{{ $data->ref_id }}</td>
@@ -64,9 +67,7 @@
   {{-- <script src="{{ asset('/js/myjs.js') }}"></script> --}}
   <script>
     $(document).ready(function() {
-      $('#job').DataTable({
-
-      });
+      $('#job').DataTable();
     });
   </script>
   @endpush

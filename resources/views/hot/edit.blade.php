@@ -273,7 +273,7 @@
                         <div class="form-group">
                             <label>Form</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" required name="vp_form" id="vp_form" value="{{ $hot->vp_form }}"/>
+                                <input type="datetime-local" class="form-control" required name="vp_form" id="vp_form" value="{{ $hot->vp_form }}"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -287,7 +287,7 @@
                         <div class="form-group">
                             <label>To</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" required name="vp_to" id="vp_to" value="{{ $hot->vp_to }}"/>
+                                <input type="datetime-local" class="form-control" required name="vp_to" id="vp_to" value="{{ $hot->vp_to }}"/>
                             </div>
                         </div>
                         <div class="form-group">

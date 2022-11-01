@@ -27,9 +27,9 @@ class User extends Authenticatable
         'status',
         'grup_id',
         'role',
-        
+
     ];
-    
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -48,9 +48,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
-        public function grup()
-        {
-            return $this->belongsTo(UserGroup::class, 'grup_id', 'id');
-        }
+
+    public function grup()
+    {
+        return $this->belongsTo(UserGroup::class, 'grup_id', 'id');
+    }
+
+    public function attendence()
+    {
+        return $this->hasMany(Report::class, 'id_user', 'id');
+    }
 }
