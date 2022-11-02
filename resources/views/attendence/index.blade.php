@@ -13,6 +13,13 @@
         <p>{{ $message }}</p>
       </div>
       @endif
+      <form action="/print_attendence" id="form2" method="post">
+        @csrf
+        <input type="hidden" name="starts_at" value="{{$starts_at}}">
+        <input type="hidden" name="ends_at" value="{{$ends_at}}">
+        <input type="hidden" name="grup_id" value="{{$grup_id}}">
+      </form>
+
       <form class="" method="GET" action="/attendence">
         @csrf
         <div class="row">
@@ -31,12 +38,24 @@
             <div class="col-sm-3">
               <input type="text" class="form-control form-control-lg" required id="starts_at" name="starts_at" placeholder="Start At" onfocus="(this.type='date')">
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
               <input type="text" class="form-control form-control-lg" required id="ends_at" placeholder="End At" name="ends_at" onfocus="(this.type='date')">
             </div>
-            <div class="col-sm-3 col-form-label">
+            <div class="col-sm-2 col-form-label">
               <button type="submit" class="btn btn-sm btn-gradient-primary ">Search</button>
             </div>
+            <div class="col-sm-2  col-form-label">
+              <div class="dropdown">
+                <button class="btn btn-sm btn-gradient-primary  dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                  Export
+                </button>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                  <li><button type="submit" class="dropdown-item active" form="form2">Pdf</button></li>
+                  <li><button type="submit" class="dropdown-item" form="form3">Excel</button></li>
+                </ul>
+              </div>
+            </div>
+
           </div>
         </div>
       </form>

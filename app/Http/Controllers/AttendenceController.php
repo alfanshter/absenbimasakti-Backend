@@ -25,15 +25,26 @@ class AttendenceController extends Controller
                 ->join('groupusers', 'groupusers.id', '=', 'users.grup_id')
                 ->select('reports.*', 'users.name', 'groupusers.nama_grup');
 
+            $grup_id = null;
+            $starts_at = null;
+            $ends_at = null;
             if ($request->all()) {
                 $report->where('users.grup_id', '=', $request->grup_id)
                     ->whereDate('reports.date', '>=', $request->starts_at)
                     ->whereDate('reports.date', '<=', $request->ends_at);
+
+                $grup_id = $request->grup_id;
+                $starts_at = $request->starts_at;
+                $ends_at = $request->ends_at;
             }
+
 
             return view('attendence.index', [
                 'attendence' => $report->paginate(10),
-                'grup' => UserGroup::all()
+                'grup' => UserGroup::all(),
+                'grup_id' => $grup_id,
+                'starts_at' => $starts_at,
+                'ends_at' => $ends_at
             ]);
             // $report = DB::table('reports')
             //     ->join('users', 'users.id', '=', 'reports.id_user')
@@ -72,6 +83,10 @@ class AttendenceController extends Controller
 
     public function filter(Request $request)
     {
+
+        $starts_at = $request->starts_at;
+        $ends_at = $request->ends_at;
+        $grup_id = $request->grup_id;
         $report = DB::table('reports')
             ->join('users', 'users.id', '=', 'reports.id_user')
             ->join('groupusers', 'groupusers.id', '=', 'users.grup_id')
@@ -81,7 +96,11 @@ class AttendenceController extends Controller
 
         return view('attendence.index', [
             'attendence' => $report,
-            'grup' => UserGroup::all()
+            'grup' => UserGroup::all(),
+            'starts_at' => $starts_at,
+            'ends_at' => $ends_at,
+            'grup_id' => $grup_id,
+
         ]);
     }
 
@@ -206,7 +225,25 @@ class AttendenceController extends Controller
 
     public function print_attendence(Request $request)
     {
-        if ($request->starts_at && $request->ends_at) {
+
+        if ($request->starts_at && $request->ends_at && $request->grup_id) {
+            $report = DB::table('reports')
+                ->join('users', 'users.id', '=', 'reports.id_user')
+                ->join('groupusers', 'groupusers.id', '=', 'users.grup_id')
+                ->select('reports.*', 'users.name', 'groupusers.nama_grup')
+                ->where('users.grup_id', '=', $request->grup_id)
+                ->whereDate('reports.date', '>=', $request->starts_at)
+                ->whereDate('reports.date', '<=', $request->ends_at)
+                ->get();
+
+            $pdf = Pdf::loadview('attendence.print', [
+                'attendence' => $report,
+                'starts_at' => $request->starts_at,
+                'ends_at' => $request->ends_at
+            ]);
+            $pdf->setPaper('A4', 'potrait');
+            return $pdf->stream();
+        } else if ($request->starts_at && $request->ends_at) {
             $report = DB::table('reports')
                 ->join('users', 'users.id', '=', 'reports.id_user')
                 ->join('groupusers', 'groupusers.id', '=', 'users.grup_id')
