@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Intervention\Image\ImageManagerStatic as Image;
 
 
 class AttendenceController extends Controller
@@ -133,7 +134,26 @@ class AttendenceController extends Controller
         $data = $request->all();
 
         if ($request->file('picture_in')) {
-            $data['picture_in'] = $request->file('picture_in')->store('foto', 'public');
+            //compress foto 
+            $foto = $request->file('picture_in');
+            $fotoName = time() . '.' . $foto->extension();
+
+            // open an image file
+            $img = Image::make($foto->path());
+
+            // prevent possible upsizing
+            $img->resize(null, 200, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+
+            // finally we save the image as a new file
+            $destinationPath = public_path('/storage/foto/' . $fotoName);
+            $data['picture_in'] = 'foto/' . $fotoName;
+            $img->save($destinationPath);
+
+
+            // $data['picture_in'] = $request->file('picture_in')->store('foto', 'public');
         }
 
         date_default_timezone_set('Asia/Jakarta');
@@ -182,7 +202,25 @@ class AttendenceController extends Controller
                 $data = $request->all();
 
                 if ($request->file('picture_out')) {
-                    $data['picture_out'] = $request->file('picture_out')->store('foto', 'public');
+                    //compress foto 
+                    $foto = $request->file('picture_out');
+                    $fotoName = time() . '.' . $foto->extension();
+
+                    // open an image file
+                    $img = Image::make($foto->path());
+
+                    // prevent possible upsizing
+                    $img->resize(null, 200, function ($constraint) {
+                        $constraint->aspectRatio();
+                        $constraint->upsize();
+                    });
+
+                    // finally we save the image as a new file
+                    $destinationPath = public_path('/storage/foto/' . $fotoName);
+                    $data['picture_out'] = 'foto/' . $fotoName;
+                    $img->save($destinationPath);
+
+                    // $data['picture_out'] = $request->file('picture_out')->store('foto', 'public');
                 }
 
                 date_default_timezone_set('Asia/Jakarta');
