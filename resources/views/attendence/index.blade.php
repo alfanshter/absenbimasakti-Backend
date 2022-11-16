@@ -4,30 +4,52 @@
 <div class="page-header">
   <h3 class="page-title"> Attendence </h3>
 </div>
+{{-- 
+@php
+    dd($attendence);
+@endphp --}}
 
 <div class="col-lg-12">
   <div class="card">
     <div class="card-body">
+
+      @if($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
       @if ($message = session()->get('success'))
       <div class="alert alert-success">
         <p>{{ $message }}</p>
       </div>
       @endif
-      <form action="/print_attendence" id="form2" method="post">
+
+      <form action="{{url('print_attendence')}}" id="form2" method="post">
         @csrf
         <input type="hidden" name="starts_at" value="{{$starts_at}}">
         <input type="hidden" name="ends_at" value="{{$ends_at}}">
         <input type="hidden" name="grup_id" value="{{$grup_id}}">
       </form>
 
-      <form class="" method="GET" action="/attendence">
+      <form action="{{url('export_excel')}}" id="form3" method="post">
         @csrf
+        <input type="hidden" name="starts_at" value="{{$starts_at}}">
+        <input type="hidden" name="ends_at" value="{{$ends_at}}">
+        <input type="hidden" name="grup_id" value="{{$grup_id}}">
+      </form>
+
+      <form class="" method="GET" action="{{url('attendence/filter')}}">
         <div class="row">
           <div class="form-group row">
             <div class="col-sm-3">
               <div class="form-group">
-                <select class="form-control form-control-lg" aria-label="Default select example" required name="grup_id" id="grup_id">
-                  <option>Pilih Grup</option>
+                <select class="form-control form-control-lg" aria-label="Default select example" name="grup_id" id="grup_id">
+                  <option value="">Pilih Grup</option>
                   @foreach ($grup as $data)
                   <option value="{{ $data->id }}">{{ $data->nama_grup }}
                   </option>
@@ -92,7 +114,11 @@
         </table>
       </div>
       <div class="d-flex justify-content-right mt-4">
-        {!! $attendence->links() !!}
+        @if($starts_at==null && $ends_at==null && $grup_id==null )
+            {{ $attendence->links() }}
+        @else
+            {{$attendence->appends(['starts_at' => $starts_at,'ends_at'=>$ends_at,'grup_id'=>$grup_id])->links()}}
+        @endif
       </div>
     </div>
   </div>

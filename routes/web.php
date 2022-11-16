@@ -104,10 +104,11 @@ Route::delete('/delete/overtime-work/{id}', [OvertimeController::class, 'destroy
 Route::get('/overtime-work/export/{id}', [OvertimeController::class, 'export']);
 
 Route::get('/attendence', [AttendenceController::class, 'index']);
-Route::post('/attendence/filter', [AttendenceController::class, 'filter']);
+Route::get('/attendence/filter', [AttendenceController::class, 'filter']);
 Route::get('/attendence/create', [AttendenceController::class, 'create']);
 Route::post('/attendence', [AttendenceController::class, 'store']);
 Route::get('/edit/attendence/{id}', [AttendenceController::class, 'edit']);
 Route::post('/update/attendence', [AttendenceController::class, 'update']);
 Route::delete('/delete/attendence/{id}', [AttendenceController::class, 'destroy']);
 Route::post('/print_attendence', [AttendenceController::class, 'print_attendence']);
+Route::post('/export_excel', [AttendenceController::class, 'export']);

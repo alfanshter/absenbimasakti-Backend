@@ -123,7 +123,6 @@
                 <td class="tg-pht7"><img style="width: 100px; height:100px" src="{{public_path('storage/'.$data->picture_in)}}" alt="" srcset=""></td>
                 <td class="tg-pht7">{{$data->check_out}}</td>
                 <td class="tg-pht7"><img style="width: 100px; height:100px" src="{{public_path('storage/'.$data->picture_out)}}" alt="" srcset=""></td>
-
             </tr>
             @endforeach
         </tbody>
