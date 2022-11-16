@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cookie;
+use App\Exports\JobExport;
+use Maatwebsite\Excel\Facades\Excel;
 use DataTables;
 use PDF;
 
@@ -224,6 +226,11 @@ class JobController extends Controller
             ])->setPaper($paper);
         return $pdf->download('Job-Safety-Analysis.pdf');
         // return view('job.export');
+    }
+
+    public function exportExcel() 
+    {
+        return Excel::download(new JobExport, 'Job-Safety-Analysis.xlsx');
     }
 
 }

@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cookie;
+use App\Exports\InternalExport;
+use Maatwebsite\Excel\Facades\Excel;
 use DataTables;
 use PDF;
 
@@ -223,5 +225,10 @@ class InternalController extends Controller
             'detail' => $detail,
         ])->setPaper($paper);
         return $pdf->download('Internal-Purchase-Requestion.pdf');
+    }
+
+    public function exportExcel() 
+    {
+        return Excel::download(new InternalExport, 'Internal-Purchase-Requestion.xlsx');
     }
 }

@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Exports\AttendenceExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class AttendenceController extends Controller
@@ -171,5 +173,10 @@ class AttendenceController extends Controller
         ];
 
         return response()->json($response, Response::HTTP_CREATED);
+    }
+
+    public function exportExcel() 
+    {
+        return Excel::download(new AttendenceExport, 'Report.xlsx');
     }
 }

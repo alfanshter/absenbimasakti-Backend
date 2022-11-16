@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cookie;
+use App\Exports\HotExport;
+use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 use DataTables;
 
@@ -284,6 +286,11 @@ class HotController extends Controller
             'hi_time' => $hi_time,
         ])->setPaper($paper);
         return $pdf->download('Hot-Work-Premit.pdf');
+    }
+
+    public function exportExcel() 
+    {
+        return Excel::download(new HotExport, 'Hot-Work-Premit.xlsx');
     }
 
 }

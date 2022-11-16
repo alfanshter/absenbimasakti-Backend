@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
+use App\Exports\OvertimeExport;
+use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 use DataTables;
 
@@ -109,5 +111,10 @@ class OvertimeController extends Controller
 
         $pdf = PDF::loadView('overtime.export',['overtime' =>$overtime])->setPaper($paper);
         return $pdf->download('Overtime-Work.pdf');
+    }
+
+    public function exportExcel() 
+    {
+        return Excel::download(new OvertimeExport, 'Overtime-Work.xlsx');
     }
 }

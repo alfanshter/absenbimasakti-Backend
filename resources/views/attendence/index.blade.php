@@ -3,6 +3,8 @@
 @section('container')
 <div class="page-header">
     <h3 class="page-title"> Attendence </h3>
+    <a href="/attendence/export-excel" class="btn btn-gradient-success btn-icon-text btn-md">
+      <i class="mdi mdi-printer btn-icon-prepend"></i> Export </a>
 </div>
 
 <div class="col-lg-12">

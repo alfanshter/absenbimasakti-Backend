@@ -4,7 +4,7 @@
 <form action="/update/hot-work-premit" method="POST">
     @csrf
 <div class="page-header">
-    <h3 class="page-title"> Add Hot Work Permit </h3>
+    <h3 class="page-title"> Edit Hot Work Permit </h3>
     <div >
       <a href="/hot-work-premit" class="btn btn-gradient-danger btn-icon-text btn-md">Cancel</a>
       <button type="submit" name="save" id="save" class="btn btn-gradient-primary btn-icon-text btn-md">Save</button>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserGroupController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AttendenceController;
 use App\Http\Controllers\HotController;
 use App\Http\Controllers\InternalController;
@@ -42,6 +43,13 @@ Route::get('/edit/user/{id}',[UserController::class,'edit']);
 Route::post('/update/user',[UserController::class,'update']);
 Route::delete('/delete/user/{id}',[UserController::class,'destroy']);
 
+Route::get('/admin',[AdminController::class,'index']);
+Route::get('/admin/create',[AdminController::class,'create']);
+Route::post('/admin',[AdminController::class,'store']);
+Route::get('/edit/admin/{id}',[AdminController::class,'edit']);
+Route::post('/update/admin',[AdminController::class,'update']);
+Route::delete('/delete/admin/{id}',[AdminController::class,'destroy']);
+
 Route::get('/job-safety-analysis', [JobController::class, 'index']);
 Route::get('/job-safety-analysis/create',[JobController::class,'create'])->name('create-job');
 Route::post('/job-safety-analysis',[JobController::class,'store']);
@@ -49,6 +57,7 @@ Route::get('/edit/job-safety-analysis/{id}',[JobController::class,'edit']);;
 Route::post('/update/job-safety-analysis',[JobController::class,'update']);
 Route::delete('/delete/job-safety-analysis/{id}',[JobController::class,'destroy']);
 Route::get('/job-safety-analysis/export/{id}', [JobController::class, 'export']);
+Route::get('/job-safety-analysis/export-excel', [JobController::class, 'exportExcel']);
 
 Route::post('/add-aar', [JobController::class, 'storeAar']);
 Route::post('/editadd-aar', [JobController::class, 'editAddAar']);
@@ -64,6 +73,7 @@ Route::get('/edit/internal-purchase-requestion/{id}',[InternalController::class,
 Route::post('/update/internal-purchase-requestion',[InternalController::class,'update']);
 Route::delete('/delete/internal-purchase-requestion/{id}',[InternalController::class,'destroy']);
 Route::get('/internal-purchase-requestion/export/{id}', [InternalController::class, 'export']);
+Route::get('/internal-purchase-requestion/export-excel', [InternalController::class, 'exportExcel']);
 
 Route::post('/add-detail', [InternalController::class, 'storeDetail']);
 Route::post('/editadd-detail', [InternalController::class, 'editAddDetail']);
@@ -80,6 +90,8 @@ Route::get('/edit/hot-work-premit/{id}',[HotController::class,'edit']);
 Route::post('/update/hot-work-premit',[HotController::class,'update']);
 Route::delete('/delete/hot-work-premit/{id}',[HotController::class,'destroy']);
 Route::get('/hot-work-premit/export/{id}', [HotController::class, 'export']);
+Route::get('/hot-work-premit/export-excel', [HotController::class, 'exportExcel']);
+
 
 Route::post('/add-equipment', [HotController::class, 'storeEquipment']);
 Route::post('/editadd-equipment', [HotController::class, 'editAddequipment']);
@@ -88,12 +100,12 @@ Route::post('/edit/update-equipment', [HotController::class, 'editupdateequipmen
 Route::post('/delete-equipment', [HotController::class, 'destroyEquipment']);
 Route::post('delete/equipment/{id}',[HotController::class,'editdestroyequipment']);
 
-Route::get('/work-at-height-premit', [WorkController::class, 'index']);
-Route::get('/work-at-height-premit/create',[WorkController::class,'create']);
-Route::post('/work-at-height-premit',[WorkController::class,'store']);
-Route::get('/edit/work-at-height-premit/{id}',[WorkController::class,'edit']);
-Route::post('/update/work-at-height-premit',[WorkController::class,'update']);
-Route::delete('/delete/work-at-height-premit/{id}',[WorkController::class,'destroy']);
+// Route::get('/work-at-height-premit', [WorkController::class, 'index']);
+// Route::get('/work-at-height-premit/create',[WorkController::class,'create']);
+// Route::post('/work-at-height-premit',[WorkController::class,'store']);
+// Route::get('/edit/work-at-height-premit/{id}',[WorkController::class,'edit']);
+// Route::post('/update/work-at-height-premit',[WorkController::class,'update']);
+// Route::delete('/delete/work-at-height-premit/{id}',[WorkController::class,'destroy']);
 
 
 Route::get('/overtime-work', [OvertimeController::class, 'index']);
@@ -103,6 +115,7 @@ Route::get('/edit/overtime-work/{id}',[OvertimeController::class,'edit']);
 Route::post('/update/overtime-work',[OvertimeController::class,'update']);
 Route::delete('/delete/overtime-work/{id}',[OvertimeController::class,'destroy']);
 Route::get('/overtime-work/export/{id}', [OvertimeController::class, 'export']);
+Route::get('/overtime-work/export-excel', [OvertimeController::class, 'exportExcel']);
 
 Route::get('/attendence', [AttendenceController::class, 'index']);
 Route::post('/attendence/filter', [AttendenceController::class, 'filter']);
@@ -111,3 +124,4 @@ Route::post('/attendence',[AttendenceController::class,'store']);
 Route::get('/edit/attendence/{id}',[AttendenceController::class,'edit']);
 Route::post('/update/attendence',[AttendenceController::class,'update']);
 Route::delete('/delete/attendence/{id}',[AttendenceController::class,'destroy']);
+Route::get('/attendencek/export-excel', [AttendenceController::class, 'exportExcel']);

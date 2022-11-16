@@ -3,8 +3,12 @@
 @section('container')
 <div class="page-header">
     <h3 class="page-title"> Overtime Work </h3>
-    <a href="/overtime-work/create" class="btn btn-gradient-primary btn-icon-text btn-md">
-      <i class="mdi mdi-plus-box btn-icon-prepend"></i> Add </a>
+    <div>
+      <a href="/overtime-work/create" class="btn btn-gradient-primary btn-icon-text btn-md">
+        <i class="mdi mdi-plus-box btn-icon-prepend"></i> Add </a>
+        <a href="/overtime-work/export-excel" class="btn btn-gradient-success btn-icon-text btn-md">
+          <i class="mdi mdi-printer btn-icon-prepend"></i> Export </a>
+    </div>
 </div>
 
 <div class="col-lg-12">

@@ -3,8 +3,12 @@
 @section('container')
 <div class="page-header">
     <h3 class="page-title"> Job Safety Analysis </h3>
-    <a href="/job-safety-analysis/create" class="btn btn-gradient-primary btn-icon-text btn-md">
-      <i class="mdi mdi-plus-box btn-icon-prepend"></i> Add </a>
+    <div>
+      <a href="/job-safety-analysis/export-excel" class="btn btn-gradient-success btn-icon-text btn-md">
+        <i class="mdi mdi-printer btn-icon-prepend"></i> Export </a>
+      <a href="/job-safety-analysis/create" class="btn btn-gradient-primary btn-icon-text btn-md">
+        <i class="mdi mdi-plus-box btn-icon-prepend"></i> Add </a>
+    </div>
 </div>
 
 <div class="col-lg-12">

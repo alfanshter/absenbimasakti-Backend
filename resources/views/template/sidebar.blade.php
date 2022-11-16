@@ -6,7 +6,7 @@
         <i class="mdi mdi-home menu-icon"></i>
       </a>
     </li>
-    @if (auth()->user()->role == "0")
+    @if (auth()->user()->role == "0" || auth()->user()->role == "1")
     <li class="nav-item">
       <a class="nav-link" data-bs-toggle="collapse" href="#user-management-page" aria-expanded="false" aria-controls="user-management-page">
         <span class="menu-title">User Management</span>
@@ -17,6 +17,9 @@
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="/user-group">User Group & Access</a></li>
           <li class="nav-item"> <a class="nav-link" href="/user">User</a></li>
+          @if (auth()->user()->role == "0")
+          <li class="nav-item"> <a class="nav-link" href="/admin">Admin</a></li>
+          @endif
         </ul>
       </div>
     </li>

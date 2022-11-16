@@ -19,14 +19,14 @@ class CreateUsersTable extends Migration
             $table->string('username');
             $table->string('email')->unique();
             $table->string('status');
-            $table->unsignedBigInteger('grup_id');
+            $table->unsignedBigInteger('grup_id')->nullable();
             $table->foreign('grup_id')
                 ->references('id')
                 ->on('groupusers')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->timestamp('email_verified_at')->nullable();
-            $table->enum('role', ['0','1']);
+            $table->enum('role', ['0','1','2']);
             $table->string('token_id')->nullable();
             $table->string('password');
             $table->rememberToken();

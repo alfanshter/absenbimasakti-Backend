@@ -11,13 +11,13 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Hash;
 use DataTables;
 
-class UserController extends Controller
+class AdminController extends Controller
 {
     public function index()
     {
         if (Auth::check()) {
-            return view('user.index', [
-                'user' => User::join('groupusers', 'groupusers.id', '=', 'users.grup_id')->select('users.*', 'groupusers.nama_grup')->where('role', '=', '2')->get()
+            return view('admin.index', [
+                'admin' => User::where('role', '=', '1')->get()
             ]);
         }
         return redirect("login")->withSuccess('You are not allowed to access');
@@ -26,9 +26,7 @@ class UserController extends Controller
     public function create()
     {
         if (Auth::check()) {
-            return view('user.create', [
-                'grup' => UserGroup::all()
-            ]);
+            return view('admin.create');
         }
         return redirect("login")->withSuccess('You are not allowed to access');
     }
@@ -44,17 +42,16 @@ class UserController extends Controller
             ]);
             $role = "1";
             $input = $request->all();
-            $user  = User::create([
+            $admin  = User::create([
                 'name' => $request->name,
                 'username' => $request->username,
                 'password' => Hash::make($request->password),
                 'email' => $request->email,
-                'role' => '2',
+                'role' => '1',
                 'status' => '0',
-                'grup_id' => $request->grup_id
             ]);
-            $token = $user->createToken('auth_token')->plainTextToken;
-            return redirect('/user')->with('success', 'User Created');
+            $token = $admin->createToken('auth_token')->plainTextToken;
+            return redirect('/admin')->with('success', 'Admin Created');
         }
         return redirect("login")->withSuccess('You are not allowed to access');
     }
@@ -62,10 +59,9 @@ class UserController extends Controller
     public function edit($id)
     {
         if (Auth::check()) {
-            $user = User::findOrFail($id);
-            return view('user.edit', [
-                'user' => $user,
-                'grup' => UserGroup::all()
+            $admin = User::findOrFail($id);
+            return view('admin.edit', [
+                'admin' => $admin,
             ]);
         }
         return redirect("login")->withSuccess('You are not allowed to access');
@@ -78,10 +74,9 @@ class UserController extends Controller
                 'name' => $request->name,
                 'username' => $request->username,
                 'email' => $request->email,
-                'grup_id' => $request->grup_id
             ]);
 
-            return redirect('/user')->with('success', 'User Updated');
+            return redirect('/admin')->with('success', 'Admin Updated');
         }
         return redirect("login")->withSuccess('You are not allowed to access');
     }
@@ -90,7 +85,7 @@ class UserController extends Controller
     {
         if (Auth::check()) {
             User::destroy($id);
-            return redirect('/user')->with('success', 'User Deleted ');
+            return redirect('/admin')->with('success', 'Admin Deleted ');
         }
         return redirect("login")->withSuccess('You are not allowed to access');
     }
