@@ -2,9 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Document</title>
 </head>
 
@@ -87,10 +85,11 @@
         <thead>
             <tr>
                 <th class="th-header" colspan="7">
-                    <img src="{{public_path('storage/foto/header.png')}}" alt="Image" style="width: 100%;">
+                    <img src="{{url('storage/foto/header.png')}}" alt="Image" style="width: 100%;">
                 </th>
             </tr>
         </thead>
+
         <tbody>
             <tr class="tr-header">
                 <td class="tg-q9j0" colspan="7"><span style="font-weight:bold">LAPORAN ABSENSI</span><br>
@@ -120,9 +119,9 @@
                 <td class="tg-pht7">{{$data->nama_grup}}</td>
                 <td class="tg-pht7">{{$data->date}}</td>
                 <td class="tg-pht7">{{$data->check_in}}</td>
-                <td class="tg-pht7"><img style="width: 100px; height:100px" src="{{public_path('storage/'.$data->picture_in)}}" alt="" srcset=""></td>
+                <td class="tg-pht7"><img style="width: 100px; height:100px" src="{{url('storage/'.$data->picture_in)}}" alt="" srcset=""></td>
                 <td class="tg-pht7">{{$data->check_out}}</td>
-                <td class="tg-pht7"><img style="width: 100px; height:100px" src="{{public_path('storage/'.$data->picture_out)}}" alt="" srcset=""></td>
+                <td class="tg-pht7"><img style="width: 100px; height:100px" src="{{url('storage/'.$data->picture_out)}}" alt="" srcset=""></td>
             </tr>
             @endforeach
         </tbody>
