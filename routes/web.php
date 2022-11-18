@@ -49,6 +49,8 @@ Route::get('/edit/job-safety-analysis/{id}', [JobController::class, 'edit']);;
 Route::post('/update/job-safety-analysis', [JobController::class, 'update']);
 Route::delete('/delete/job-safety-analysis/{id}', [JobController::class, 'destroy']);
 Route::get('/job-safety-analysis/export/{id}', [JobController::class, 'export']);
+Route::get('/job-safety-analysis/export_all', [JobController::class, 'export_all']);
+Route::get('/job-safety-analysis/export_excel', [JobController::class, 'export_excel']);
 
 Route::post('/add-aar', [JobController::class, 'storeAar']);
 Route::post('/editadd-aar', [JobController::class, 'editAddAar']);
@@ -64,6 +66,8 @@ Route::get('/edit/internal-purchase-requestion/{id}', [InternalController::class
 Route::post('/update/internal-purchase-requestion', [InternalController::class, 'update']);
 Route::delete('/delete/internal-purchase-requestion/{id}', [InternalController::class, 'destroy']);
 Route::get('/internal-purchase-requestion/export/{id}', [InternalController::class, 'export']);
+Route::get('/internal-purchase-requestion/export_all', [InternalController::class, 'export_all']);
+Route::get('/internal-purchase-requestion/export_excel', [InternalController::class, 'export_excel']);
 
 Route::post('/add-detail', [InternalController::class, 'storeDetail']);
 Route::post('/editadd-detail', [InternalController::class, 'editAddDetail']);

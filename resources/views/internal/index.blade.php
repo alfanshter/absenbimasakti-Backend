@@ -15,6 +15,32 @@
         <p>{{ $message }}</p>
       </div>
       @endif
+
+      <form action="{{url('internal-purchase-requestion/export_all')}}" id="form2" method="get">
+        @csrf
+      </form>
+
+      <form action="{{url('internal-purchase-requestion/export_excel')}}" id="form3" method="get">
+        @csrf
+      </form>
+
+
+      <div class="row">
+        <div class="form-group row">
+          <div class="col-sm-2  col-form-label">
+            <div class="dropdown">
+              <button class="btn btn-sm btn-gradient-primary  dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                Export
+              </button>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                <li><button type="submit" class="dropdown-item active" form="form2">Pdf</button></li>
+                <li><button type="submit" class="dropdown-item" form="form3">Excel</button></li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
       <div class="table-responsive">
         <table class="table table-striped table-bordered" id="internal-purchase-requestion">
           <thead>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\InternalExport;
 use App\Models\InternalPurchaseRequesition;
 use App\Models\DetailInternalPurchaseRequesition;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -225,5 +226,22 @@ class InternalController extends Controller
             'detail' => $detail,
         ])->setPaper($paper);
         return $pdf->download('Internal-Purchase-Requestion.pdf');
+    }
+
+
+    public function export_all()
+    {
+        $data = InternalPurchaseRequesition::all();
+        $pdf = Pdf::loadview('internal.printinternal', [
+            'data' => $data
+        ]);
+        $pdf->setPaper('A4', 'potrait');
+        return $pdf->stream();
+    }
+
+    public function export_excel()
+    {
+        $name = 'attendence' . date('Ymd') . '.xlsx';
+        return (new InternalExport())->download($name);
     }
 }

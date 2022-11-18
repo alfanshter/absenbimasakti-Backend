@@ -24,9 +24,9 @@ class AttendenceController extends Controller
         if (Auth::check()) {
 
             $report = DB::table('reports')
-            ->join('users', 'users.id', '=', 'reports.id_user')
-            ->join('groupusers', 'groupusers.id', '=', 'users.grup_id')
-            ->select('reports.*', 'users.name', 'groupusers.nama_grup')->paginate(10);
+                ->join('users', 'users.id', '=', 'reports.id_user')
+                ->join('groupusers', 'groupusers.id', '=', 'users.grup_id')
+                ->select('reports.*', 'users.name', 'groupusers.nama_grup')->paginate(10);
 
             $grup_id = null;
             $starts_at = null;
@@ -47,20 +47,20 @@ class AttendenceController extends Controller
 
 
     public function filter(Request $request)
-    {        
+    {
         $starts_at = $_GET['starts_at'];
         $ends_at =   $_GET['ends_at'];
         $grup_id =   $_GET['grup_id'];
 
-        if($grup_id!=""){
+        if ($grup_id != "") {
             $report = DB::table('reports')
                 ->join('users', 'users.id', '=', 'reports.id_user')
                 ->join('groupusers', 'groupusers.id', '=', 'users.grup_id')
-                ->where('groupusers.id',$grup_id)
+                ->where('groupusers.id', $grup_id)
                 ->whereBetween('date', [$starts_at, $ends_at])
                 ->select('reports.*', 'users.name', 'groupusers.*')
                 ->paginate(10);
-        }else{
+        } else {
             $report = DB::table('reports')
                 ->join('users', 'users.id', '=', 'reports.id_user')
                 ->join('groupusers', 'groupusers.id', '=', 'users.grup_id')
@@ -237,15 +237,15 @@ class AttendenceController extends Controller
 
     public function print_attendence(Request $request)
     {
-        $name = 'attendence'.date('Ymd').'.pdf';
+        $name = 'attendence' . date('Ymd') . '.pdf';
 
-        if ($request->starts_at != null && $request->ends_at!= null && $request->grup_id!=null) {
+        if ($request->starts_at != null && $request->ends_at != null && $request->grup_id != null) {
             $report = DB::table('reports')
                 ->join('users', 'users.id', '=', 'reports.id_user')
                 ->join('groupusers', 'groupusers.id', '=', 'users.grup_id')
                 ->select('reports.*', 'users.name', 'groupusers.nama_grup')
                 ->where('users.grup_id', '=', $request->grup_id)
-                ->whereBetween('date', [$request->starts_at,$request->ends_at])
+                ->whereBetween('date', [$request->starts_at, $request->ends_at])
                 ->get();
 
             $pdf = Pdf::loadview('attendence.print', [
@@ -256,12 +256,12 @@ class AttendenceController extends Controller
             $pdf->setPaper('A4', 'potrait');
             // return $pdf->download($name);
             return $pdf->stream();
-        } else if ($request->starts_at!=null && $request->ends_at!=null) {
+        } else if ($request->starts_at != null && $request->ends_at != null) {
             $report = DB::table('reports')
                 ->join('users', 'users.id', '=', 'reports.id_user')
                 ->join('groupusers', 'groupusers.id', '=', 'users.grup_id')
                 ->select('reports.*', 'users.name', 'groupusers.nama_grup')
-                ->whereBetween('date', [$request->starts_at,$request->ends_at])
+                ->whereBetween('date', [$request->starts_at, $request->ends_at])
                 ->get();
 
             $pdf = Pdf::loadview('attendence.print', [
@@ -293,9 +293,7 @@ class AttendenceController extends Controller
 
     public function export(Request $request)
     {
-        $name = 'attendence'.date('Ymd').'.xlsx';
-        return (new ReportExport($request->grup_id,$request->starts_at,$request->ends_at))->download($name);
-
-
+        $name = 'attendence' . date('Ymd') . '.xlsx';
+        return (new ReportExport($request->grup_id, $request->starts_at, $request->ends_at))->download($name);
     }
 }

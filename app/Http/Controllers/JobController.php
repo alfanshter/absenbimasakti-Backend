@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\JsaExport;
 use App\Models\JobSafetyAnalysis;
 use App\Models\AarJobSafety;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -227,5 +228,21 @@ class JobController extends Controller
         ])->setPaper($paper);
         return $pdf->download('Job-Safety-Analysis.pdf');
         // return view('job.export');
+    }
+
+    public function export_all()
+    {
+        $job = JobSafetyAnalysis::all();
+        $pdf = Pdf::loadview('job.printjob', [
+            'data' => $job
+        ]);
+        $pdf->setPaper('A4', 'potrait');
+        return $pdf->stream();
+    }
+
+    public function export_excel()
+    {
+        $name = 'attendence' . date('Ymd') . '.xlsx';
+        return (new JsaExport())->download($name);
     }
 }
